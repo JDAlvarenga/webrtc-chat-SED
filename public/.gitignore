@@ -1,0 +1,5 @@
+#ignore vendor folder from composer
+vendor/
+
+#ignofre composer lock file
+composer.lock
