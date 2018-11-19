@@ -9,8 +9,19 @@
 
 ## Simple Install 
 Clone this repo to any folder, copy the contents from ./webrtc-chat-SED/ to /var/www/html/
+```sh
+$ cd public
+$ composer install
+```
+### Running the WebServer for sockets
 
-## Or Installation with Virtual Host Files
+```sh
+cd /var/www/webchatsed.org/public
+php5.6 src/chat-server.php
+```
+*************************************
+
+## Or Installation with Virtual Host Files (git friendly)
 ### Files and Folders
 ```sh
 $ sudo mkdir -p /var/www/webchatsed.org
