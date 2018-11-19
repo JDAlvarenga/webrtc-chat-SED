@@ -14,7 +14,7 @@
 <?php
 require 'vendor/autoload.php';
 
-$app = new \atk4\ui\App();   // That's your UI application
+$app = new \atk4\ui\App("WebChatSED");   // That's your UI application
 $app->initLayout('Centered');
 
 $form = new \atk4\ui\Form(); // Yeah, that's a form!
