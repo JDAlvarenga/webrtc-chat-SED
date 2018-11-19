@@ -56,6 +56,22 @@ $ sudo a2ensite webchatsed.org.conf
 $ sudo service apache2 restart
 ```
 
+### Set Up Local Hosts File
+
+The final step is to add the rules to connect from the computers to the server
+
+```sh
+$ sudo nano /etc/hosts
+```
+
+Add this two lines in the hosts file
+
+```sh
+127.0.0.1	webchatsed.org
+127.0.0.1	www.webchatsed.org
+```
+
+
 ###  Test the site
 
 Now that you have your virtual hosts configured, you can test your setup easily by going to the domain
