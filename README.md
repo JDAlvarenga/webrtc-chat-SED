@@ -5,10 +5,11 @@
 - Install PHP 5.6
 - Install Postrgesql (psql) 9.5
 
-# Simple Install 
+
+## Simple Install 
 Clone this repo to any folder, copy the contents from ./webrtc-chat-SED/ to /var/www/html/
 
-# Or Installation with Virtual Host Files
+## Or Installation with Virtual Host Files
 ### Files and Folders
 ```sh
 $ sudo mkdir -p /var/www/webchatsed.org
@@ -74,8 +75,15 @@ Add this two lines in the hosts file
 
 ###  Test the site
 
-Now that you have your virtual hosts configured, you can test your setup easily by going to the domain
+Now that you have your virtual hosts configured, you can test your setup easily by going to the domain, you still have to run the server
 
 ```sh
 http://webchatsed.org
+```
+
+### Running the WebServer for sockets
+
+```sh
+cd /var/www/webchatsed.org/public
+php5.6 src/chat-server.php
 ```
