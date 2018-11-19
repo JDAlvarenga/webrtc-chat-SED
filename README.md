@@ -21,7 +21,7 @@ php5.6 src/chat-server.php
 ```
 *************************************
 
-## Or Installation with Virtual Host Files (git friendly)
+## Or Installation with Virtual Host Files (for local development and git)
 ### Files and Folders
 ```sh
 $ sudo mkdir -p /var/www/webchatsed.org
