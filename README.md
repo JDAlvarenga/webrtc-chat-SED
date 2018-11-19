@@ -1,9 +1,10 @@
 # webrtc-chat-SED
 
 # Requirements
-- Install Apache 2.4 (or greater)
-- Install PHP 5.6
-- Install Postrgesql (psql) 9.5
+- Installed Apache 2.4 (or greater)
+- Installed PHP 5.6
+- Installed Postrgesql (psql) 9.5
+- Installed Composer (latest version)
 
 
 ## Simple Install 
