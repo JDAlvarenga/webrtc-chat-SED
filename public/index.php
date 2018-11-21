@@ -1,39 +1,39 @@
 <html>
 <head>
-  <link rel="stylesheet" href="src/css/main.css" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="src/shared/semantic/semantic.min.css">
+  <link rel="stylesheet" href="src/css/login.css" type="text/css" media="screen" />
 </head>
 <body>
-<div class="chat">
-    <input id="username" type="text" placeholder="Input username" maxlength="128">
-    <button onclick="startConection()">Iniciar Coneccion</button>
-    <div id="chatOutput"></div>
-    <input id="chatInput" type="text" placeholder="Input Text here" maxlength="128">
-    <button onclick="enviarMensaje()" id="chatSend">Send</button>
+<div class="ui two column doubling stackable grid container" id="loginDesign">
+  <div class="column loginParts" id="blueLoginPart">
+     <img src="src/assets/leftLoginImage.jpg" alt="Login Image" height="auto" width="100%"> 
+  </div>
+  <div class="column loginParts" id="whiteLoginPart">
+    <div class="ui left icon input">
+        <input id="username" type="text" placeholder="Ingrese usuario...">
+        <i class="user icon"></i>
+    </div>
+    <br>
+    <div class="ui left icon input">
+        <input id="username" type="password" placeholder="Ingrese contrasna...">
+        <i class="key icon"></i>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="ui left action input">
+        <button class="ui teal labeled icon button" onclick="startConection()">
+        <i class="rocketchat icon"></i>
+        Iniciar Conexion
+        </button>
+    </div>
+  </div>
 </div>
 <script src="src/js/jquery-3.3.1.min.js"></script>
-<?php
-require 'vendor/autoload.php';
-
-$app = new \atk4\ui\App("WebChatSED");   // That's your UI application
-$app->initLayout('Centered');
-
-$form = new \atk4\ui\Form(); // Yeah, that's a form!
-$app->add($form);
-
-$form->addField('username');    // adds field
-$form->onSubmit(function ($form) {
-    // implement subscribe here
-
-    return $form->success('Subscribed '.$form->model['email'].' to newsletter.');
-});
-
-// Decorate anything
-$form->buttonSave->set('Subscribe');
-$form->buttonSave->icon = 'mail';
-
-// everything renders automatically
-
-?>
+<script src="src/shared/semantic/semantic.min.js"></script>
+<script src="src/js/mockChat.js"></script>
 <script>    
     var conn;
     function startConection() {
@@ -71,15 +71,11 @@ $form->buttonSave->icon = 'mail';
         var t = document.createTextNode("Yo : " + data + "\n");     // Create a text node
         var br = document.createElement("BR"); 
         chatOutput.appendChild(t);  
-        chatOutput.appendChild(br);  
-
-        <?php 
-	        $message = new \atk4\ui\Message('Yo : ' + data + '\n');
-	        $GLOBALS['app']->add($message);
-        ?>
+        chatOutput.appendChild(br);
         conn.send(username + " : " + data);
     };
 </script>
+
 </body>
 </html> 
 
