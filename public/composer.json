@@ -5,6 +5,8 @@
         }
     },
     "require": {
-        "cboden/ratchet": "^0.4.1"
+        "cboden/ratchet": "^0.4.1",
+        "catfan/medoo": "^1.6",
+        "ext-pdo_pgsql": "^1.0"
     }
 }

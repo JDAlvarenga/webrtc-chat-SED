@@ -15,7 +15,7 @@
     </div>
     <br>
     <div class="ui left icon input">
-        <input id="username" type="password" placeholder="Ingrese contrasna...">
+        <input id="username" type="password" placeholder="Ingrese contrasena...">
         <i class="key icon"></i>
     </div>
     <br>
@@ -29,11 +29,19 @@
         Iniciar Conexion
         </button>
     </div>
+    <div class="ui icon message">
+      <i class="inbox icon"></i>
+      <div class="content">
+        <div class="header">
+          Aun no posees cuenta?
+        </div>
+        <a href='createAccount'>Crear una ahora!</a>
+      </div>
+    </div>
   </div>
 </div>
 <script src="src/js/jquery-3.3.1.min.js"></script>
 <script src="src/shared/semantic/semantic.min.js"></script>
-<script src="src/js/mockChat.js"></script>
 <script>    
     var conn;
     function startConection() {
@@ -75,7 +83,58 @@
         conn.send(username + " : " + data);
     };
 </script>
+<?php
+    // If you installed via composer, just use this code to require autoloader on the top of your projects.
+    require 'vendor/autoload.php';
+     
+    // Using Medoo namespace
+    use Medoo\Medoo;
+     
+    $database = new Medoo([
+        // required
+        'database_type' => 'pgsql',
+        'database_name' => 'appchat',
+        'server' => 'localhost',
+        'username' => 'postgres',
+        'password' => 'rootPass',
+     
+        // [optional]
+        'charset' => 'utf8mb4',
+        'collation' => 'utf8mb4_general_ci',
+        'port' => 5432
 
+    ]);
+    $datas = $database->select("chat", [
+        "username",
+        "text"
+    ]);
+     
+    // $datas = array(
+    //  [0] => array(
+    //      "user_name" => "foo",
+    //      "email" => "foo@bar.com"
+    //  ),
+    //  [1] => array(
+    //      "user_name" => "cat",
+    //      "email" => "cat@dog.com"
+    //  )
+    // )
+     
+    foreach($datas as $data)
+    {
+        echo "username:" . $data["username"] . " - text:" . $data["text"] . "<br/>";
+    }
+?>
+<?php
+  function loadCreateAccount() {
+    echo 'I just ran a php function';
+    header("Location: webchat.php");
+  }
+
+  if (isset($_GET['createAccount'])) {
+    loadCreateAccount();
+  }
+?>
 </body>
 </html> 
 

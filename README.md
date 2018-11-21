@@ -52,6 +52,11 @@ $ sudo nano /etc/apache2/sites-available/webchatsed.org.conf
 The file will look something like this (I've removed the comments here to make the file more approachable):
 ```sh
 <VirtualHost *:80>
+	<Directory /var/www/webchatsed.org/public>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Require all granted
+    </Directory>
     ServerAdmin admin@webchatsed.org
     ServerName webchatsed.org
     ServerAlias www.webchatsed.org
