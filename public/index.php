@@ -35,7 +35,7 @@
         <div class="header">
           Aun no posees cuenta?
         </div>
-        <a href='createAccount'>Crear una ahora!</a>
+        <a href='index.php?createAccount=true'>Crear una ahora!</a>
       </div>
     </div>
   </div>
