@@ -26,7 +26,7 @@
     <div class="ui left action input">
         <button class="ui teal labeled icon button" onclick="startConection()">
         <i class="rocketchat icon"></i>
-        Iniciar ConexionTest
+        Iniciar Conexion
         </button>
     </div>
   </div>
