@@ -9,33 +9,39 @@
      <img src="src/assets/leftLoginImage.jpg" alt="Login Image" height="auto" width="100%"> 
   </div>
   <div class="column loginParts" id="whiteLoginPart">
-    <div class="ui left icon input">
-        <input id="username" type="text" placeholder="Ingrese usuario...">
-        <i class="user icon"></i>
-    </div>
-    <br>
-    <div class="ui left icon input">
-        <input id="username" type="password" placeholder="Ingrese contrasena...">
-        <i class="key icon"></i>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <div class="ui left action input">
-        <button class="ui teal labeled icon button" onclick="startConection()">
-        <i class="rocketchat icon"></i>
-        Iniciar Conexion
-        </button>
-    </div>
+    <form action="/webchat" method="post">
+        <div class="ui left icon input">
+            <input name="dataU" id="username" type="text" placeholder="Ingrese usuario...">
+            <i class="user icon"></i>
+        </div>
+        <br>
+        <div class="ui left icon input">
+            <input name="dataP" id="password" type="password" placeholder="Ingrese contrasena...">
+            <i class="key icon"></i>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>    
+        <div class="ui left action input">
+            <button class="ui teal labeled icon button" type="submit">
+            <i class="rocketchat icon"></i>
+            Iniciar Conexion
+            </button>
+        </div>
+    </form> 
+     <form action="/index.php" method="post">
+  First name: <input type="text" name="fname"><br>
+  Last name: <input type="text" name="lname"><br>
+  <input type="submit" value="Submit">
+</form> 
     <div class="ui icon message">
       <i class="inbox icon"></i>
       <div class="content">
         <div class="header">
           Aun no posees cuenta?
         </div>
-        <a href='index.php?createAccount=true'>Crear una ahora!</a>
+        <a href='#'>Crear una ahora!</a>
       </div>
     </div>
   </div>
@@ -126,14 +132,14 @@
     }
 ?>
 <?php
-  function loadCreateAccount() {
+  function loginWebchat() {
     echo 'I just ran a php function';
     header("Location: webchat.php");
   }
 
-  if (isset($_GET['createAccount'])) {
+  if (isset($_GET['goWebChat'])) {
     echo 'Im alive';
-    loadCreateAccount();
+    loginWebchat();
   }
 ?>
 </body>
