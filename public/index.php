@@ -106,7 +106,7 @@
     ]);
     $datas = $database->select("chat", [
         "username",
-        "text"
+        "password"
     ]);
      
     // $datas = array(
@@ -122,7 +122,7 @@
      
     foreach($datas as $data)
     {
-        echo "username:" . $data["username"] . " - text:" . $data["text"] . "<br/>";
+        echo "username:" . $data["username"] . " - text:" . $data["password"] . "<br/>";
     }
 ?>
 <?php
@@ -133,7 +133,7 @@
 
   if (isset($_GET['createAccount'])) {
     echo 'Im alive';
-    //loadCreateAccount();
+    loadCreateAccount();
   }
 ?>
 </body>
