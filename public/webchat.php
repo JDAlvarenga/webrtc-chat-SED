@@ -50,26 +50,68 @@
         $result = '
         <div class="chat">    
             <div class="ui left icon input">
-                <input id="username" type="text" placeholder="Ingrese usuario...">
+                <input id="username" type="text" placeholder="Nickname para sala...">
                 <i class="user icon"></i>
-                <div class="ui left action input">
-                    <button class="ui teal labeled icon button" onclick="startConection()">
+                <div class="ui buttons left action input">
+                    <button class="ui green labeled icon button" onclick="startConection()" id="startConection">
                     <i class="rocketchat icon"></i>
-                    Iniciar Coneccion
+                        Iniciar Conexion
+                    </button>
+                    <div class="or" data-text="O"></div>
+                    <button class="ui gray labeled icon button" id="closeConection">
+                        Cerrar Conexion
                     </button>
                 </div>
             </div>
             <div id="chatOutput"></div>
-            <input id="chatInput" type="text" placeholder="Input Text here" maxlength="128">
-            <button onclick="enviarMensaje()" id="chatSend">Send</button>
+            <input id="chatInput" type="text" placeholder="Ingresar mensaje..." maxlength="128">
+            <div class="ui left action input">
+                <button class="ui gray labeled icon button" id="sendMessageButton">
+                <i class="telegram plane icon"></i>
+                Enviar Mensaje
+                </button>
+            </div>
         </div>
         <script src="src/js/jquery-3.3.1.min.js"></script>
         <script src="src/shared/semantic/semantic.min.js"></script>
         <script>    
             var conn;
+            function closeConection(){
+                conn.close();
+                $("#sendMessageButton").attr(\'class\', \'ui gray labeled icon button\');  
+                $("#closeConection").attr(\'class\', \'ui gray labeled icon button\');  
+                $("#startConection").attr(\'class\', \'ui green labeled icon button\'); 
+
+                $("#startConection").on(\'click\', function (e) {
+                    startConection();
+                }); 
+
+                $("#sendMessageButton").off(\'click\'); 
+                $("#chatInput").off(\'keyup\');
+                $("#closeConection").off(\'click\'); 
+                conn=null;
+            }
+
             function startConection() {
                 if(!conn){
-                    conn = new WebSocket(\'ws://149.28.102.58:8080\');    
+                    conn = new WebSocket(\'ws://149.28.102.58:8080\'); 
+                    $("#sendMessageButton").attr(\'class\', \'ui teal labeled icon button\');  
+                    $("#closeConection").attr(\'class\', \'ui red labeled icon button\');  
+                    $("#startConection").attr(\'class\', \'ui gray labeled icon button\');  
+
+                    $("#startConection").off(\'click\');  
+
+                    $("#sendMessageButton").on(\'click\', function (e) {
+                        enviarMensaje();
+                    }); 
+                    $("#chatInput").on(\'keyup\', function (e) {
+                        if (e.keyCode == 13) {
+                            enviarMensaje();
+                        }
+                    });
+                    $("#closeConection").on(\'click\', function (e) {
+                        closeConection();
+                    }); 
                 }       
                 conn.onopen = function(e) {
                     var username = document.getElementById(\'username\').value; 
@@ -103,8 +145,11 @@
                 var br = document.createElement("BR"); 
                 chatOutput.appendChild(t);  
                 chatOutput.appendChild(br);
+                document.getElementById(\'chatInput\').value= "";
                 conn.send(username + " : " + data);
             };
+            
+
         </script>
         <script language="javascript">
             document.getElementById("loadingDesign").style.display = "none";

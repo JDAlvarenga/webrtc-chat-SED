@@ -68,11 +68,12 @@ body {
 }
 
 .chat #chatOutput {
+    background-color: white;
     overflow-y: scroll;
     height: 280px;
     width: 100%;
     border: 1px solid #777;
-    color: white;
+    color: black;
 }
 
 .chat #chatOutput p {
@@ -83,7 +84,7 @@ body {
 }
 
 .chat #chatInput {
-    width: 75%;
+    flex: 2;
 }
 
 .chat #chatSend {
