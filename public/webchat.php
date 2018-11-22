@@ -1,5 +1,6 @@
 <html>
-<head>
+  <head>
+    <title>WebChat P2P SED</title>
   <link rel="stylesheet" href="src/css/main.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="src/shared/semantic/semantic.min.css">
   <link rel="stylesheet" href="src/css/webchat.css" type="text/css" media="screen" />
