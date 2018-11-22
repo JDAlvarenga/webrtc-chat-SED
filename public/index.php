@@ -132,7 +132,8 @@
   }
 
   if (isset($_GET['createAccount'])) {
-    loadCreateAccount();
+    echo 'Im alive';
+    //loadCreateAccount();
   }
 ?>
 </body>
