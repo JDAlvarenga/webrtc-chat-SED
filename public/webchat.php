@@ -25,7 +25,7 @@
     var conn;
     function startConection() {
         if(!conn){
-            conn = new WebSocket('ws://localhost:8080');    
+            conn = new WebSocket('ws://149.28.102.58:8080');    
         }       
         conn.onopen = function(e) {
             var username = document.getElementById('username').value; 
