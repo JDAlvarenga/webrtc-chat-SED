@@ -30,11 +30,6 @@
             </button>
         </div>
     </form> 
-     <form action="/index.php" method="post">
-  First name: <input type="text" name="fname"><br>
-  Last name: <input type="text" name="lname"><br>
-  <input type="submit" value="Submit">
-</form> 
     <div class="ui icon message">
       <i class="inbox icon"></i>
       <div class="content">
@@ -134,12 +129,15 @@
 <?php
   function loginWebchat() {
     echo 'I just ran a php function';
-    header("Location: webchat.php");
+    header("Location: webchat");
   }
 
   if (isset($_GET['goWebChat'])) {
     echo 'Im alive';
     loginWebchat();
+  }
+  if ($_POST['status']=='loginError') {
+    echo 'ErrorLogin';
   }
 ?>
 </body>

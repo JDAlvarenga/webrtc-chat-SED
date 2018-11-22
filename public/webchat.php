@@ -62,7 +62,54 @@
         conn.send(username + " : " + data);
     };
 </script>
+<?php
+    // If you installed via composer, just use this code to require autoloader on the top of your projects.
+    require 'vendor/autoload.php';
+     
+    // Using Medoo namespace
+    use Medoo\Medoo;
+     
+    $database = new Medoo([
+        // required
+        'database_type' => 'pgsql',
+        'database_name' => 'appchat',
+        'server' => 'localhost',
+        'username' => 'postgres',
+        'password' => 'rootPass',
+     
+        // [optional]
+        'charset' => 'utf8mb4',
+        'collation' => 'utf8mb4_general_ci',
+        'port' => 5432
 
+    ]);
+    echo $_POST['dataU'];
+    echo $_POST['dataP'];
+    if ($database->has("chat", [
+    "AND" => [
+        "username" => $_POST['dataU'],//DataUser
+        "password" => $_POST['dataP']//DataPass
+    ]
+    ]))
+    {
+        echo "Login Succesful.";
+    }
+    else
+    {
+        //echo "Login error.";
+        $_POST['status']='loginError';
+        echo '<form id="myForm" action="/" method="post">';
+            foreach ($_POST as $a => $b) {
+                echo '<input type="hidden" name="'.htmlentities($a).'" value="'.htmlentities($b).'">';
+            }
+        echo "</form>";
+        echo '<script type="text/javascript">
+                document.getElementById("myForm").submit();
+              </script>
+             ';
+        //header('Location: index');
+    }
+?>
 </body>
 </html> 
 
