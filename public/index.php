@@ -30,6 +30,14 @@
             </button>
         </div>
     </form> 
+    <div id="errorMessage" class="ui negative message">
+          <i class="close icon" onclick="document.getElementById('errorMessage').style.display = 'none';"></i>
+          <div class="header">
+            Error las credenciales ingresadas no son validas
+          </div>
+          <p>Intente nuevamente
+        </p>
+    </div>
     <div class="ui icon message">
       <i class="inbox icon"></i>
       <div class="content">
@@ -138,6 +146,11 @@
   }
   if ($_POST['status']=='loginError') {
     echo 'ErrorLogin';
+  }else{
+    echo '<script language="javascript">
+            document.getElementById("errorMessage").style.display = "none";
+        </script>
+    ';
   }
 ?>
 </body>

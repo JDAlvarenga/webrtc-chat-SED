@@ -1,0 +1,91 @@
+/*Border-box reset*/
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+/*Chat styling*/
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to right, #119dc7,#26e3d4,#119dc7); 
+}
+
+/*Login*/
+#loadingDesign{
+    height: 70%;
+}
+#webchatDesign{
+    border-radius: 5px 30px 5px 30px;
+    background-color: #062b3b;
+    padding: 15px;
+}
+#blueLoginPart {
+    overflow: hidden;
+    border-radius: 5px 0px 0px 30px;
+    background: #062b3b;
+}
+#whiteLoginPart {
+    border-radius: 5px 30px 5px 30px;
+    background-color: #062b3b;
+}
+.loginParts{
+    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
+    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.loginParts::after {
+    content: '';
+    position: absolute;
+    z-index: -1; /* hide shadow behind image */
+    -webkit-box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);                
+    width: 70%; 
+    left: 15%; /* one half of the remaining 30% */
+    height: 100px;
+    bottom: 0;
+}
+
+
+.username {
+    margin-bottom: 20px;
+}
+
+.chat {
+    border-radius: 5px 30px 5px 30px;
+    max-width: 600px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.chat #chatOutput {
+    overflow-y: scroll;
+    height: 280px;
+    width: 100%;
+    border: 1px solid #777;
+    color: white;
+}
+
+.chat #chatOutput p {
+    margin: 0;
+    padding: 5px;
+    border-bottom: 1px solid #bbb;
+    word-break: break-all;
+}
+
+.chat #chatInput {
+    width: 75%;
+}
+
+.chat #chatSend {
+    width: 25%;
+}
