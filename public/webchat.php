@@ -94,7 +94,7 @@
 
             function startConection() {
                 if(!conn){
-                    conn = new WebSocket(\'ws://149.28.102.58:8080\'); 
+                    conn = new WebSocket(\'wss://webchatsed.tk/wss2/\'); 
                     $("#sendMessageButton").attr(\'class\', \'ui teal labeled icon button\');  
                     $("#closeConection").attr(\'class\', \'ui red labeled icon button\');  
                     $("#startConection").attr(\'class\', \'ui gray labeled icon button\');  
