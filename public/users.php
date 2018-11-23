@@ -52,10 +52,28 @@ if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
                     'port' => 5432
 
                 ]);
+                if ($database->has("chat", [
+                     "AND" => [
+                         "username" => $_SESSION['user'],//DataUser
+                         "active" => false
+                     ]
+                 ])
+                
+                ){
+                    echo '<form id="logoutForm" action="/logout" method="post">';//Go to login
+                    echo "</form>";
+                    echo '<script type="text/javascript">
+                        document.getElementById("logoutForm").submit();
+                        </script>
+                    ';
+                            
+
+                 }
+
                 if(isset($_POST['userid'])){
                     if(isset($_POST['enable'])){
                         $database->update("chat", [
-                           "active" => $updated_value
+                           "active" => 1
                        ], ["id[=]" => $_POST['userid']]);
                        $_POST['userid'] = null;
                        $_POST['enable'] = null;
@@ -63,7 +81,7 @@ if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
                     }else{
                      if(isset($_POST['disable'])){
                         $database->update("chat", [
-                           "active" => $updated_value
+                           "active" => 0
                        ], ["id[=]" => $_POST['userid']]);
                        $_POST['userid'] = null;
                        $_POST['enable'] = null;
@@ -81,7 +99,6 @@ if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
                    $_POST['userid'] = null;/*/
                 }
                 $results = $database->select("chat",["id","username", "active", "role"]);
-                echo "<p> Usuarios: </p><br/>";
                 echo '
                     <table class="ui collapsing celled table">
                           <thead>
