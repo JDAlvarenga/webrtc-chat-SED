@@ -11,3 +11,16 @@ CREATE TABLE chat (
 INSERT INTO chat (username, password) VALUES (
   'user1',
   'pass1');
+
+  ALTER TABLE chat ADD COLUMN ROLE SMALLINT DEFAULT NULL;
+
+   UPDATE chat SET role = 1 where id = 1;
+
+
+INSERT INTO chat (username, password, role) VALUES (
+  'user2',
+  'pass2', 2);
+
+
+ALTER TABLE chat ADD COLUMN active boolean DEFAULT NULL;
+UPDATE chat SET active = true;
