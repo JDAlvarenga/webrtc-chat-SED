@@ -74,18 +74,15 @@ if ( isset($_SESSION['user']) ||
 			$_SESSION['LAST_ACTIVITY'] = $time;
 		}
 	
-	error_log("USER:".$_SESSION['user']. " ROLE:". $_SESSION['role']  );
 		// Checking for timeout
-		$timeout_duration = 180;
+		$timeout_duration = 1800;
 
 		if (isset($_SESSION['LAST_ACTIVITY']) && 
 			($time - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
-			session_unset();
+
 			session_destroy();
-			session_start();
 			header('Location: index.php');
 		}
-
 
         if( $_SESSION['role'] == 2){ //Chat user
             $result = '
