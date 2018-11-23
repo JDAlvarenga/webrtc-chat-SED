@@ -48,13 +48,15 @@
 	session_start();
 
     if ($database->has("chat", [
-		"AND" => [
-			"username" => $_POST['dataU'],//DataUser
-			"password" => $_POST['dataP']//DataPass
-		]
+    "AND" => [
+        "username" => $_POST['dataU'],//DataUser
+        "password" => $_POST['dataP'],//DataPass
+        "active" => true
+    ]
     ])
 		|| 	isset($_SESSION['user'])
 	){
+
 		$time = $_SERVER['REQUEST_TIME'];
 
 		// Creating a new session with the username
@@ -74,114 +76,127 @@
 			header('Location: index.php');
 		}
 
-        $result = '
-        <div class="chat">    
-            <div class="ui left icon input">
-                <input id="username" type="text" placeholder="Nickname para sala...">
-                <i class="user icon"></i>
-                <div class="ui buttons left action input">
-                    <button class="ui green labeled icon button" onclick="startConection()" id="startConection">
-                    <i class="rocketchat icon"></i>
-                        Iniciar Conexion
-                    </button>
-                    <div class="or" data-text="O"></div>
-                    <button class="ui gray labeled icon button" id="closeConection">
-                        Cerrar Conexion
+
+        if($database->get("chat", "role", ["username" => $_POST['dataU']]) == 2){ //Chat user
+            $result = '
+            <div class="chat">    
+                <div class="ui left icon input">
+                    <input id="username" type="text" placeholder="Nickname para sala...">
+                    <i class="user icon"></i>
+                    <div class="ui buttons left action input">
+                        <button class="ui green labeled icon button" onclick="startConection()" id="startConection">
+                        <i class="rocketchat icon"></i>
+                            Iniciar Conexion
+                        </button>
+                        <div class="or" data-text="O"></div>
+                        <button class="ui gray labeled icon button" id="closeConection">
+                            Cerrar Conexion
+                        </button>
+                    </div>
+                </div>
+                <div id="chatOutput"></div>
+                <input id="chatInput" type="text" placeholder="Ingresar mensaje..." maxlength="128">
+                <div class="ui left action input">
+                    <button class="ui gray labeled icon button" id="sendMessageButton">
+                    <i class="telegram plane icon"></i>
+                    Enviar Mensaje
+>>>>>>> 7170aed5cae86bc860d1f96b715bec25d25c0589
                     </button>
                 </div>
             </div>
-            <div id="chatOutput"></div>
-            <input id="chatInput" type="text" placeholder="Ingresar mensaje..." maxlength="128">
-            <div class="ui left action input">
-                <button class="ui gray labeled icon button" id="sendMessageButton">
-                <i class="telegram plane icon"></i>
-                Enviar Mensaje
-                </button>
-            </div>
-        </div>
-        <script src="src/js/jquery-3.3.1.min.js"></script>
-        <script src="src/shared/semantic/semantic.min.js"></script>
-        <script>    
-            var conn;
-            function closeConection(){
-                conn.close();
-                $("#sendMessageButton").attr(\'class\', \'ui gray labeled icon button\');  
-                $("#closeConection").attr(\'class\', \'ui gray labeled icon button\');  
-                $("#startConection").attr(\'class\', \'ui green labeled icon button\'); 
+            <script src="src/js/jquery-3.3.1.min.js"></script>
+            <script src="src/shared/semantic/semantic.min.js"></script>
+            <script>    
+                var conn;
+                function closeConection(){
+                    conn.close();
+                    $("#sendMessageButton").attr(\'class\', \'ui gray labeled icon button\');  
+                    $("#closeConection").attr(\'class\', \'ui gray labeled icon button\');  
+                    $("#startConection").attr(\'class\', \'ui green labeled icon button\'); 
 
-                $("#startConection").on(\'click\', function (e) {
-                    startConection();
-                }); 
-
-                $("#sendMessageButton").off(\'click\'); 
-                $("#chatInput").off(\'keyup\');
-                $("#closeConection").off(\'click\'); 
-                conn=null;
-            }
-
-            function startConection() {
-                if(!conn){
-                    conn = new WebSocket(\'wss://webchatsed.tk/wss2/\'); 
-                    $("#sendMessageButton").attr(\'class\', \'ui teal labeled icon button\');  
-                    $("#closeConection").attr(\'class\', \'ui red labeled icon button\');  
-                    $("#startConection").attr(\'class\', \'ui gray labeled icon button\');  
-
-                    $("#startConection").off(\'click\');  
-
-                    $("#sendMessageButton").on(\'click\', function (e) {
-                        enviarMensaje();
+                    $("#startConection").on(\'click\', function (e) {
+                        startConection();
                     }); 
-                    $("#chatInput").on(\'keyup\', function (e) {
-                        if (e.keyCode == 13) {
+
+                    $("#sendMessageButton").off(\'click\'); 
+                    $("#chatInput").off(\'keyup\');
+                    $("#closeConection").off(\'click\'); 
+                    conn=null;
+                }
+
+                function startConection() {
+                    if(!conn){
+                        conn = new WebSocket(\'wss://webchatsed.tk/wss2/\'); 
+                        $("#sendMessageButton").attr(\'class\', \'ui teal labeled icon button\');  
+                        $("#closeConection").attr(\'class\', \'ui red labeled icon button\');  
+                        $("#startConection").attr(\'class\', \'ui gray labeled icon button\');  
+
+                        $("#startConection").off(\'click\');  
+
+                        $("#sendMessageButton").on(\'click\', function (e) {
                             enviarMensaje();
-                        }
-                    });
-                    $("#closeConection").on(\'click\', function (e) {
-                        closeConection();
-                    }); 
-                }       
-                conn.onopen = function(e) {
-                    var username = document.getElementById(\'username\').value; 
-                    console.log("Connection established!");
-                    conn.send(username + " entro al servidor")
-                };
+                        }); 
+                        $("#chatInput").on(\'keyup\', function (e) {
+                            if (e.keyCode == 13) {
+                                enviarMensaje();
+                            }
+                        });
+                        $("#closeConection").on(\'click\', function (e) {
+                            closeConection();
+                        }); 
+                    }       
+                    conn.onopen = function(e) {
+                        var username = document.getElementById(\'username\').value; 
+                        console.log("Connection established!");
+                        conn.send(username + " entro al servidor")
+                    };
 
-                conn.onmessage = function(e) {
+                    conn.onmessage = function(e) {
+                        var chatOutput = document.getElementById(\'chatOutput\');                // Create a <h1> element
+                        var t = document.createTextNode(e.data);     // Create a text node
+                        var br = document.createElement("BR"); 
+                        chatOutput.appendChild(t);  
+                        chatOutput.appendChild(br);  
+                        console.log(e.data);
+                    };
+
+                    conn.onerror = function(e) {
+                        console.log(e);
+                    };
+
+                    conn.onclose = function(e) {
+                        console.log(e);
+                    };
+                };
+                function enviarMensaje() {
+                    var username = document.getElementById(\'username\').value; 
+                    var data = document.getElementById(\'chatInput\').value; 
+                    console.log("Yo : " + data);
                     var chatOutput = document.getElementById(\'chatOutput\');                // Create a <h1> element
-                    var t = document.createTextNode(e.data);     // Create a text node
+                    var t = document.createTextNode("Yo : " + data + "\n");     // Create a text node
                     var br = document.createElement("BR"); 
                     chatOutput.appendChild(t);  
-                    chatOutput.appendChild(br);  
-                    console.log(e.data);
+                    chatOutput.appendChild(br);
+                    document.getElementById(\'chatInput\').value= "";
+                    conn.send(username + " : " + data);
                 };
+                
 
-                conn.onerror = function(e) {
-                    console.log(e);
-                };
-
-                conn.onclose = function(e) {
-                    console.log(e);
-                };
-            };
-            function enviarMensaje() {
-                var username = document.getElementById(\'username\').value; 
-                var data = document.getElementById(\'chatInput\').value; 
-                console.log("Yo : " + data);
-                var chatOutput = document.getElementById(\'chatOutput\');                // Create a <h1> element
-                var t = document.createTextNode("Yo : " + data + "\n");     // Create a text node
-                var br = document.createElement("BR"); 
-                chatOutput.appendChild(t);  
-                chatOutput.appendChild(br);
-                document.getElementById(\'chatInput\').value= "";
-                conn.send(username + " : " + data);
-            };
-            
-
-        </script>
-        <script language="javascript">
-            document.getElementById("loadingDesign").style.display = "none";
-        </script>
-        ';
+            </script>
+            <script language="javascript">
+                document.getElementById("loadingDesign").style.display = "none";
+            </script>
+            ';
+            }
+            else
+            {
+                echo '<form id="myForm" action="/users.php" method="post">';//Go to login
+                echo "</form>";
+                echo '<script type="text/javascript">
+                    document.getElementById("myForm").submit();
+                    </script>
+                ';
+        }
     }
     else
     {
