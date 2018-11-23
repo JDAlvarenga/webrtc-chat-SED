@@ -27,9 +27,9 @@
                     'port' => 5432
 
                 ]);
-                $results = $database->get("chat");
+                $results = $database->select("chat","username");
                 foreach ($results as $result) {
-                    echo "RESULT";
+                    echo "Usuario: " . $result;
                 }
             ?>
         </div>
