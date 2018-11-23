@@ -31,12 +31,20 @@
             </button>
         </div>
     </form> 
-    <div id="errorMessage" class="ui negative message">
+    <div id="errorMessage" class="ui negative message" style="display: none;">
           <i class="close icon" onclick="document.getElementById('errorMessage').style.display = 'none';"></i>
           <div class="header">
             Error las credenciales ingresadas no son validas
           </div>
           <p>Intente nuevamente
+        </p>
+    </div>
+    <div id="loginError" class="ui warning message" style="display: none;">
+          <i class="close icon" onclick="document.getElementById('loginError').style.display = 'none';"></i>
+          <div class="header">
+            Error tu usuario ha sido desactivado
+          </div>
+          <p>Contacta a un administrador
         </p>
     </div>
     <div class="ui icon message">
@@ -159,10 +167,14 @@ if (isset($_SESSION['user'])) {
     header('Location: webchat.php');
 }
   if ( $_POST['status']=='loginError' ) {
-    echo 'ErrorLogin';
-  }else{
     echo '<script language="javascript">
-            document.getElementById("errorMessage").style.display = "none";
+            document.getElementById("errorMessage").style.display = "block";
+        </script>
+    ';
+  }
+  if ( $_POST['status']=='errorActive' ) {
+    echo '<script language="javascript">
+            document.getElementById("loginError").style.display = "block";
         </script>
     ';
   }

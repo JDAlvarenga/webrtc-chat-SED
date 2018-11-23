@@ -60,7 +60,9 @@ if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
                  ])
                 
                 ){
-                    echo '<form id="logoutForm" action="/logout" method="post">';//Go to login
+                    session_destroy();
+                    echo '<form id="logoutForm" action="/index" method="post">';//Go to login
+                    echo '<input type=\'hidden\' name=\'status\' id=\'errorActive\' value="yes">';
                     echo "</form>";
                     echo '<script type="text/javascript">
                         document.getElementById("logoutForm").submit();
