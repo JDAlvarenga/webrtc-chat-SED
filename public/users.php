@@ -27,9 +27,18 @@
                     'port' => 5432
 
                 ]);
-                $results = $database->select("chat","username");
+                $results = $database->select("chat",["username", "active", "role"]);
+                echo "<p> Usuarios: </p><br/>";
+                echo "<table style=\"color:white;\">
+                        <tr>
+                            <th>Username</th>
+                            <th>Status</th>
+                            <th>Role</th>
+                        </tr>";
                 foreach ($results as $result) {
-                    echo "Usuario: " . $result;
+                    echo "<tr><td>".$result["username"]."</td>".
+                            "<td>". $result["active"]."</td>".
+                            "<td>". $result["role"]."</td></tr>";
                 }
             ?>
         </div>
