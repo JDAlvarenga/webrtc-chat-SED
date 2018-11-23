@@ -5,12 +5,21 @@ grant all privileges on database appchat to postgres ;
 CREATE TABLE chat (
   id SERIAL PRIMARY KEY,
   username TEXT NOT NULL UNIQUE,
-  password TEXT NOT NULL
+  password TEXT NOT NULL,
+  role SMALLINT,
+  active boolean
 );
 
-INSERT INTO chat (username, password) VALUES (
+INSERT INTO chat (username, password,role,active) VALUES (
   'user1',
-  'pass1');
+  'pass1',
+  1,
+  't');
+INSERT INTO chat (username, password,role,active) VALUES (
+  'user2',
+  'pass2',
+  1,
+  't');
 
   ALTER TABLE chat ADD COLUMN ROLE SMALLINT DEFAULT NULL;
 
