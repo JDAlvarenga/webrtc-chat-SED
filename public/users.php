@@ -94,7 +94,8 @@ if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
                    ], ["id[=]" => $_POST['userid']]);
                    $_POST['userid'] = null;/*/
                 }
-                $results = $database->select("chat",["id","username", "active", "role"]);
+                $results = $database->select("chat",["id","username", "active", "role"], 
+                ["username[!]" => $_SESSION['user']]);
                 echo '
                     <table class="ui collapsing celled table">
                           <thead>
