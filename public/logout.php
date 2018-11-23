@@ -1,9 +1,11 @@
  <?php
+require_once 'vendor/autoload.php';
+$handler = new \ByJG\Session\JwtSession('webchatsed.tk', 'your super secret key', 5);
+$handler->replaceSessionHandler(true);
 
-session_start();
-session_unset();
+
 session_destroy();
-session_start();
+
 header('Location: index.php');
 
 ?>

@@ -136,8 +136,10 @@
     }
 ?>
 <?php
-//$handler = new \ByJG\Session\JwtSession('webchatsed.tk', 'your super secret key', 5);
-//session_set_save_handler($handler, true);
+require_once 'vendor/autoload.php';
+
+$handler = new \ByJG\Session\JwtSession('webchatsed.tk', 'your super secret key', 5);
+$handler->replaceSessionHandler(true);
 
   function loginWebchat() {
     echo 'I just ran a php function';
@@ -150,6 +152,8 @@
   }
 
 session_start();
+
+error_log("INDEX - > USER:".$_SESSION['user']. " ROLE:". $_SESSION['role']  );
 
 if (isset($_SESSION['user'])) {
     header('Location: webchat.php');

@@ -1,3 +1,21 @@
+<?php
+require_once 'vendor/autoload.php';
+
+$handler = new \ByJG\Session\JwtSession('webchatsed.tk', 'your super secret key', 5);
+$handler->replaceSessionHandler(true);
+
+error_log("USER:".$_SESSION['user']. " ROLE:". $_SESSION['role']  );
+
+// session_start();
+
+if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
+	error_log("ERROR: VAMOS ENTRO PERO NO ERA DE ENTRAR");
+	header('Location: index.php');
+}
+
+?>
+
+
 </<!DOCTYPE html>
 <html>
 <head>

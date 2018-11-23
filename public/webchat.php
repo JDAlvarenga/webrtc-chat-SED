@@ -29,10 +29,10 @@
     
 <?php
 // If you installed via composer, just use this code to require autoloader on the top of your projects.
-//$handler = new \ByJG\Session\JwtSession('webchatsed.tk', 'your super secret key', 5);
-// session_set_save_handler($handler, true);
 
-    require 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
+$handler = new \ByJG\Session\JwtSession('webchatsed.tk', 'your super secret key', 5);
+$handler->replaceSessionHandler(true);
      
     // Using Medoo namespace
     use Medoo\Medoo;
@@ -54,14 +54,15 @@
 
 	session_start();
 
-    if ($database->has("chat", [
-    "AND" => [
-        "username" => $_POST['dataU'],//DataUser
-        "password" => $_POST['dataP'],//DataPass
-        "active" => true
-    ]
-    ])
-		|| 	isset($_SESSION['user'])
+if ( isset($_SESSION['user']) ||
+	 $database->has("chat", [
+		 "AND" => [
+			 "username" => $_POST['dataU'],//DataUser
+			 "password" => $_POST['dataP'],//DataPass
+			 "active" => true
+		 ]
+     ])
+	
 	){
 
 		$time = $_SERVER['REQUEST_TIME'];
@@ -69,9 +70,11 @@
 		// Creating a new session with the username
 		if (!isset($_SESSION['user'])) {
 			$_SESSION['user'] = $_POST['dataU'];
+			$_SESSION['role'] = $database->get("chat", "role", ["username" => $_POST['dataU']]);
 			$_SESSION['LAST_ACTIVITY'] = $time;
 		}
-
+	
+	error_log("USER:".$_SESSION['user']. " ROLE:". $_SESSION['role']  );
 		// Checking for timeout
 		$timeout_duration = 180;
 
@@ -84,7 +87,7 @@
 		}
 
 
-        if($database->get("chat", "role", ["username" => $_POST['dataU']]) == 2){ //Chat user
+        if( $_SESSION['role'] == 2){ //Chat user
             $result = '
             <div class="chat">    
                 <div class="ui left icon input">
@@ -195,8 +198,10 @@
             ';
             }
             else
-            {
-                echo '<form id="myForm" action="/users.php" method="post">';//Go to login
+            {  
+				echo("<script>console.log('PHP: VAMOS');</script>");
+				
+				echo '<form id="myForm" action="/users.php" method="post">';//Go to login
                 echo "</form>";
                 echo '<script type="text/javascript">
                     document.getElementById("myForm").submit();
