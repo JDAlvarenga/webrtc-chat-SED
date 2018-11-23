@@ -59,11 +59,29 @@ if ( isset($_SESSION['user']) ||
 		 "AND" => [
 			 "username" => $_POST['dataU'],//DataUser
 			 "password" => $_POST['dataP'],//DataPass
-			 "active" => true
 		 ]
      ])
 	
 	){
+        if ($database->has("chat", [
+                     "AND" => [
+                         "username" => $_POST['dataU'],//DataUser
+                         "active" => false
+                     ]
+                 ])
+                
+                ){
+                    session_destroy();
+                    echo '<form id="logoutForm" action="/index" method="post">';//Go to login
+                    echo '<input type=\'hidden\' name=\'status\' id=\'status\' value="errorActive">';
+                    echo "</form>";
+                    echo '<script type="text/javascript">
+                        document.getElementById("logoutForm").submit();
+                        </script>
+                    ';
+                            
+
+                 }
 
 		$time = $_SERVER['REQUEST_TIME'];
 
