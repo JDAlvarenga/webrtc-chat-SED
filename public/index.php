@@ -136,6 +136,9 @@
     }
 ?>
 <?php
+//$handler = new \ByJG\Session\JwtSession('webchatsed.tk', 'your super secret key', 5);
+//session_set_save_handler($handler, true);
+
   function loginWebchat() {
     echo 'I just ran a php function';
     header("Location: webchat");
@@ -145,7 +148,13 @@
     echo 'Im alive';
     loginWebchat();
   }
-  if ($_POST['status']=='loginError') {
+
+session_start();
+
+if (isset($_SESSION['user'])) {
+    header('Location: webchat.php');
+}
+  if ( $_POST['status']=='loginError' ) {
     echo 'ErrorLogin';
   }else{
     echo '<script language="javascript">

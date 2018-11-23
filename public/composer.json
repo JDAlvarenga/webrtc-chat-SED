@@ -8,6 +8,7 @@
         "cboden/ratchet": "^0.4.1",
         "catfan/medoo": "^1.6",
         "ext-pdo_pgsql": "^1.0",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "byjg/jwt-session": "^1.0"
     }
 }

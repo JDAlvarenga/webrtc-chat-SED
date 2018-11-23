@@ -21,7 +21,10 @@
     </div>
     
 <?php
-    // If you installed via composer, just use this code to require autoloader on the top of your projects.
+// If you installed via composer, just use this code to require autoloader on the top of your projects.
+//$handler = new \ByJG\Session\JwtSession('webchatsed.tk', 'your super secret key', 5);
+// session_set_save_handler($handler, true);
+
     require 'vendor/autoload.php';
      
     // Using Medoo namespace
@@ -41,13 +44,36 @@
         'port' => 5432
 
     ]);
+
+	session_start();
+
     if ($database->has("chat", [
-    "AND" => [
-        "username" => $_POST['dataU'],//DataUser
-        "password" => $_POST['dataP']//DataPass
-    ]
-    ]))
-    {
+		"AND" => [
+			"username" => $_POST['dataU'],//DataUser
+			"password" => $_POST['dataP']//DataPass
+		]
+    ])
+		|| 	isset($_SESSION['user'])
+	){
+		$time = $_SERVER['REQUEST_TIME'];
+
+		// Creating a new session with the username
+		if (!isset($_SESSION['user'])) {
+			$_SESSION['user'] = $_POST['dataU'];
+			$_SESSION['LAST_ACTIVITY'] = $time;
+		}
+
+		// Checking for timeout
+		$timeout_duration = 180;
+
+		if (isset($_SESSION['LAST_ACTIVITY']) && 
+			($time - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
+			session_unset();
+			session_destroy();
+			session_start();
+			header('Location: index.php');
+		}
+
         $result = '
         <div class="chat">    
             <div class="ui left icon input">
