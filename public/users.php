@@ -73,18 +73,29 @@ if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
                         $database->update("chat", [
                            "active" => 1
                        ], ["id[=]" => $_POST['userid']]);
-                       $_POST['userid'] = null;
-                       $_POST['enable'] = null;
-                       $_POST['disable'] = null;
                     }else{
                      if(isset($_POST['disable'])){
                         $database->update("chat", [
                            "active" => 0
                        ], ["id[=]" => $_POST['userid']]);
-                       $_POST['userid'] = null;
-                       $_POST['enable'] = null;
-                       $_POST['disable'] = null;
-                    }   
+                    }else{
+                        if(isset($_POST['makeadmin'])){
+                            $database->update("chat", [
+                               "role" => 1
+                           ], ["id[=]" => $_POST['userid']]);
+                        }else{
+                            if(isset($_POST['makeuser'])){
+                                $database->update("chat", [
+                                   "role" => 2
+                               ], ["id[=]" => $_POST['userid']]);
+                            }
+                        }
+                    }
+                    $_POST['userid'] = null;
+                   $_POST['enable'] = null;
+                   $_POST['disable'] = null;
+                   $_POST['makeadmin'] =null;
+                   $_POST['makeuser'] = null;
                     }
 
                     /*$updated_value = 1;
@@ -117,7 +128,7 @@ if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
                 foreach ($results as $result) {
                     echo '
                         <tr>
-                        <form method=\'post\' action=\'\'> 
+                        
                           <td>
                             <h4 class="ui image header">
                               <div class="content">
@@ -128,7 +139,11 @@ if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
                           </h4></td>
                           <td>
                             <div class="ui left action input">
+                            <form method=\'post\' action=\'\'> 
                                 '.get_button_message($result["active"]).'
+                                </form>
+                            <form method=\'post\' action=\'\'> '
+                                .get_button_role($result["role"])  .'
                                 <input type=\'hidden\' name=\'userid\' id=\'userid\' value="'.$result["id"].'">
                             </div>
                           </td>
@@ -166,6 +181,26 @@ if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
                                     Activar
                                 </button>
                                 <input type=\'hidden\' name=\'enable\' id=\'enable\' value="yes">
+                        ';
+                        //return "Activar";
+                    }
+                }
+                function get_button_role($string){
+                    if($string == "1"){
+                        return '
+                                <button class="ui orange icon button" type="submit">
+                                    Hacer User
+                                </button>
+                                <input type=\'hidden\' name=\'makeuser\' id=\'makeuser\' value="yes">
+                            ';
+                        //return "Desactivar";
+                    }
+                    else{
+                        return '
+                                <button class="ui teal icon button" type="submit" >
+                                    Hacer Admin
+                                </button>
+                                <input type=\'hidden\' name=\'makeadmin\' id=\'makeadmin\' value="yes">
                         ';
                         //return "Activar";
                     }
