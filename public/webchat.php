@@ -6,6 +6,13 @@
   <link rel="stylesheet" href="src/css/webchat.css" type="text/css" media="screen" />
 </head>
 <body>
+	<form id="logout" action="/logout">
+		<button class="ui teal labeled icon button" type="submit">
+            <i class="rocketchat icon"></i>
+            Cerrar sesion
+        </button>
+    </form>
+
     <div class="ui one column doubling stackable grid container" id="loadingDesign">
         <div class="column loginParts" id="whiteLoginPart">
             <div class="ui icon message">
@@ -100,7 +107,6 @@
                     <button class="ui gray labeled icon button" id="sendMessageButton">
                     <i class="telegram plane icon"></i>
                     Enviar Mensaje
->>>>>>> 7170aed5cae86bc860d1f96b715bec25d25c0589
                     </button>
                 </div>
             </div>

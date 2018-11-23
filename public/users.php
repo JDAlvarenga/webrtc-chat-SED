@@ -7,6 +7,13 @@
   <link rel="stylesheet" href="src/css/webchat.css" type="text/css" media="screen" />
 </head>
 <body>
+    <form id="logout" action="/logout">
+		<button class="ui teal labeled icon button" type="submit">
+            <i class="rocketchat icon"></i>
+            Cerrar sesion
+        </button>
+    </form>
+
 <div class="ui one column doubling stackable grid container" id="loadingDesign">
         <div class="column loginParts" id="whiteLoginPart" style="color:white;">
             <h1>Listado de usuarios: <h1>
