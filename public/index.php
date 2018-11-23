@@ -138,10 +138,10 @@
     //  )
     // )
      
-    foreach($datas as $data)
+    /*foreach($datas as $data)
     {
         echo "username:" . $data["username"] . " - text:" . $data["password"] . "<br/>";
-    }
+    }*/
 ?>
 <?php
 require_once 'vendor/autoload.php';
