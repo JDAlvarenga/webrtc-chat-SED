@@ -137,7 +137,8 @@ if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
                             <h4 class="ui image header">
                               <div class="content">
                                 '.$result["username"].'
-                                <div class="sub header">'. $result["role"].'
+                                <div class="sub header">'
+                                .print_role_message($result["role"]).'
                               </div>
                             </div>
                           </h4></td>
@@ -190,6 +191,14 @@ if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
                         //return "Activar";
                     }
                 }
+                function print_role_message($role){
+                    if($role =="1"){
+                        return 'Administrador';
+                    }else{
+                        return 'Usuario';
+                    }
+                }
+
                 function get_button_role($string){
                     if($string == "1"){
                         return '
