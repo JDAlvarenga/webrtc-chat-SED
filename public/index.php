@@ -47,7 +47,7 @@
           <p>Contacta a un administrador
         </p>
     </div>
-    <div class="ui icon message">
+    <div class="ui icon message" style="display: none;">
       <i class="inbox icon"></i>
       <div class="content">
         <div class="header">
