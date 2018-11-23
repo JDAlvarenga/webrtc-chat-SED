@@ -52,9 +52,44 @@ if ( !isset($_SESSION['user']) || $_SESSION['role'] == 2) {
                     'port' => 5432
 
                 ]);
-                $results = $database->select("chat","username");
+                if(isset($_POST['userid'])){
+                    $updated_value = 1;
+                    if($_POST['userid'] == 1){
+                        $updated_value = 0;
+                    }
+                   $database->update("chat", [
+                       "active" => $updated_value
+                   ], ["id[=]" => $_POST['userid']]);
+                }
+                $results = $database->select("chat",["id","username", "active", "role"]);
+                echo "<p> Usuarios: </p><br/>";
+                echo ' <table style=\"color:white;\">
+                        <tr>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>';
                 foreach ($results as $result) {
-                    echo "Usuario: " . $result;
+                    echo "<tr>
+                            <form method='post' action=''> 
+                            <td>".$result["username"]."</td>".
+                            "<td>". $result["role"]."</td>".
+                            "<td>
+                                <input type='submit' value=\"".get_button_message($result["active"])."\"/>
+                                <input type='hidden' name='userid' id='userid' value=\"".$result["id"]."\">
+                            </td>
+                            </form>
+                            </tr>";
+                }
+
+                function get_button_message($string){
+                    if($string == "1"){
+                        return "Desactivar";
+                    }
+                    else{
+                        return "Activar";
+                    }
                 }
             ?>
         </div>
